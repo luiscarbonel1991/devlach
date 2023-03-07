@@ -166,3 +166,13 @@ suspend fun main() {
 // ConcurrentTime : 1542
 // Profile(userinfo=UserInfo(name=Luis, lastName=Foo), trackingInfo=TrackingInfo(webSites=[vercel.com, devlach.com]))
 // StructuredTime : 1525
+
+// Output with debugging
+// Profile(userinfo=UserInfo(name=Luis, lastName=Foo), trackingInfo=TrackingInfo(webSites=[vercel.com, devlach.com]))
+// SequentialTime : 3001
+// Profile(userinfo=UserInfo(name=Luis, lastName=Foo), trackingInfo=TrackingInfo(webSites=[vercel.com, devlach.com]))
+// ConcurrentTime : 1550
+// CoroutineName(Service) is executing in DefaultDispatcher-worker-1
+// CoroutineName(General Purpose) is executing in DefaultDispatcher-worker-3
+// Profile(userinfo=UserInfo(name=Luis, lastName=Foo), trackingInfo=TrackingInfo(webSites=[vercel.com, devlach.com]))
+// StructuredTime : 1509
