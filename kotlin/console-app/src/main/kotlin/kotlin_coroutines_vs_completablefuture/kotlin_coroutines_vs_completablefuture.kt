@@ -1,8 +1,8 @@
 package kotlin_coroutines_vs_completablefuture
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.concurrent.CompletableFuture
+import kotlin.system.measureTimeMillis
 
 // combining two asynchronous operations using Kotlin coroutines
 /*
@@ -41,6 +41,7 @@ fun main() {
  */
 
 // combining two asynchronous operations using CompletableFuture and Kotlin coroutines
+/*
 fun main(): Unit = runBlocking {
 
 
@@ -63,4 +64,52 @@ fun main(): Unit = runBlocking {
         .join()
 
     // Output: Hello World
+}
+ */
+
+
+
+
+// Kotlin's coroutines to CompletableFuture example
+fun main(): Unit = runBlocking {
+    measureTimeMillis {
+        val worldJob = async {
+            delay(3000)
+            "World"
+        }
+
+        val helloCompletableFuture = helloCompletableFuture()
+
+        // if we combine helloCompletableFuture with worldJob, we get a compilation error because
+        // worldJob is a Job and not a CompletableFuture
+        /*
+         helloCompletableFuture.thenCombine(worldJob.await()) { s1, s2 -> "$s1 $s2" }
+             .thenAccept { println(it) }
+             .join()
+         */
+
+        // convert worldJob to CompletableFuture
+        val worldCompletableFuture = worldJob.asCompletableFuture()
+
+        // now we can combine helloCompletableFuture with worldCompletableFuture
+        helloCompletableFuture.thenCombine(worldCompletableFuture) { s1, s2 -> "$s1 $s2" }
+            .thenAccept { println(it) }
+            .join()
+
+    }.also { println("Time: $it") }
+
+    // Output: Hello World
+    // Time: 3001
+}
+
+fun helloCompletableFuture(): CompletableFuture<String> {
+    return CompletableFuture.supplyAsync {
+        Thread.sleep(1000)
+        "Hello"
+    }
+}
+
+// Kotlin coroutines to CompletableFuture
+suspend fun  <T> Deferred<T>.asCompletableFuture(): CompletableFuture<T> {
+    return CompletableFuture.completedFuture(await())
 }
