@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package com.devlach;
+
+option java_multiple_files = true;
+option java_package = "com.devlach.proto";
+option java_outer_classname = "OrderProto";
+
+service OrderService {
+    rpc GetOrders (OrderRequest) returns (OrderResponse) {}
+}
+
+message OrderRequest {
+    int32 totalOrders = 1;
+    int32 totalItems = 2;
+}
+
+message OrderResponse {
+    repeated Order orders = 1;
+}
+
+message Order {
+    int32 id = 1;
+    string customerName = 2;
+    repeated Item items = 3;
+    double totalCost = 4;
+}
+
+message Item {
+  string name = 1;
+  int32 quantity = 2;
+  double price = 3;
+}

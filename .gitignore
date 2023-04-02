@@ -2,6 +2,9 @@
 kotlin/console-app/.idea
 kotlin/console-app/.gradle
 kotlin/console-app/build
+kotlin/kotlin-protocol-buffer-sample/.idea
+kotlin/kotlin-protocol-buffer-sample/.gradle
+kotlin/kotlin-protocol-buffer-sample/build
 java/console-app/.idea
 java/console-app/.gradle
 java/console-app/build
