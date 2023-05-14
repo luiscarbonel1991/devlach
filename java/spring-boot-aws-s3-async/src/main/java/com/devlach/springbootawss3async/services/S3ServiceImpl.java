@@ -2,7 +2,6 @@ package com.devlach.springbootawss3async.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
@@ -67,21 +66,17 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public int uploadDirectory(String bucketName, String directoryPath, String prefix) {
-
+        validateS3Key(prefix);
         S3TransferManager s3TransferManager = S3TransferManager.builder()
                 .s3Client(s3AsyncClient)
                 .build();
         UploadDirectoryRequest.Builder uploadDirectoryBuilder = UploadDirectoryRequest.builder()
                 .bucket(bucketName)
-                .s3Prefix("uploadDirectory")
+                .s3Prefix(prefix)
                 .source(Paths.get(directoryPath))
                 .uploadFileRequestTransformer(uploadFileRequest -> uploadFileRequest
                         .addTransferListener(LoggingTransferListener.create(DEFAULT_MAX_TICKS))
                         .build());
-
-        if (StringUtils.hasLength(prefix)) {
-            uploadDirectoryBuilder.s3Prefix(prefix);
-        }
 
         CompletedDirectoryUpload completedDirectoryUpload = s3TransferManager.uploadDirectory(uploadDirectoryBuilder.build())
                 .completionFuture().join();
@@ -92,6 +87,7 @@ public class S3ServiceImpl implements S3Service {
 
     @Override
     public List<String> listObjects(String bucketName, String prefix) {
+        validateS3Key(prefix);
         return s3AsyncClient
                 .listObjectsV2(builder -> builder.bucket(bucketName)
                         .prefix(prefix)).join().contents().stream().map(S3Object::key).toList();
@@ -117,5 +113,19 @@ public class S3ServiceImpl implements S3Service {
                 log.error("Error deleting bucket {}. {}", bucketName, err.getMessage());
             }
         };
+    }
+
+    private static void validateS3Key(String key) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException("Key must not be null or empty");
+        }
+
+        if (key.startsWith("/")) {
+            throw new IllegalArgumentException("Key must not start with /");
+        }
+
+        if (key.contains("//")) {
+            throw new IllegalArgumentException("Key must not contain //");
+        }
     }
 }
