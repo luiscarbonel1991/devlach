@@ -13,6 +13,6 @@ public class VATCalculator implements TaxCalculator {
 
     @Override
     public TaxType getTaxType() {
-        return TaxType.VAT;
+        return TaxType.VAT_TAX;
     }
 }

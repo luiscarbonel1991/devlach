@@ -53,7 +53,7 @@ public class StrategyExample {
         AppContext appContext = new AppContext();
         AccountingApplication accountingApplication = new AccountingApplication(appContext);
         System.out.println("Total Income Tax: " + accountingApplication.calculateTax(amounts, TaxType.INCOME_TAX));
-        System.out.println("Total VAT Tax: " + accountingApplication.calculateTax(amounts, TaxType.VAT));
+        System.out.println("Total VAT Tax: " + accountingApplication.calculateTax(amounts, TaxType.VAT_TAX));
         System.out.println("Total Sales Tax: " + accountingApplication.calculateTax(amounts, TaxType.SALES_TAX));
     }
 
