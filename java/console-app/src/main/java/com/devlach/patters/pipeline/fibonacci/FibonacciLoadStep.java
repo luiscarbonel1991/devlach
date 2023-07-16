@@ -11,7 +11,7 @@ public class FibonacciLoadStep implements Step<List<Integer>, List<Integer>> {
      */
     @Override
     public List<Integer> process(List<Integer> input) {
-        System.out.println("ReverseFibonacciLoadStep.process");
+        System.out.println("FibonacciLoadStep.process");
         System.out.printf("input: %s%n", input);
         System.out.printf("output: %s%n", input);
         return input;
