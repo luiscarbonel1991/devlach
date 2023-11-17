@@ -19,6 +19,8 @@
 * [Java examples.](java)
 
 ## Posts
+* [Spring Security by Default in a Spring Boot API](https://devlach.com/blog/java/spring-security-by-default)
+* [Class, Case Class, and their secrets!](https://devlach.com/blog/scala/case-class)
 * [Pipeline Design Pattern in Java](https://devlach.com/blog/java/pipeline-design-pattern-in-java)
 * [Strategy Design Pattern in Java](https://devlach.com/blog/java/strategy-design-pattern-in-java)
 * [How to Upload Files to Amazon S3 using Spring Boot and S3 Transfer Manager](https://devlach.com/blog/java/how-to-upload-files-to-amazon-s3-using-spring-boot-and-the-amazon-s3-transfer-manager)
