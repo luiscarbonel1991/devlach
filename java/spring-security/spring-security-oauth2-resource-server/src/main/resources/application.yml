@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:public.pem
+          audiences: tasks-api-client
+
+logging:
+  level:
+    org.springframework.security: TRACE
