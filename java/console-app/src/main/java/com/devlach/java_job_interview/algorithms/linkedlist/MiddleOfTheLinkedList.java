@@ -1,13 +1,6 @@
-package com.devlach.java_job_interview.algorithms;
+package com.devlach.java_job_interview.algorithms.linkedlist;
 
 public class MiddleOfTheLinkedList {
-
-    static class ListNode{
-        int val;
-        ListNode next;
-        ListNode(int val) { val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
 
     public static ListNode middleNode(ListNode head){
         ListNode slow = head;
