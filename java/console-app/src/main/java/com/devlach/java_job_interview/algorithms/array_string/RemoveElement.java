@@ -1,4 +1,4 @@
-package com.devlach.java_job_interview.algorithms;
+package com.devlach.java_job_interview.algorithms.array_string;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.devlach.java_job_interview.algorithms;
+package com.devlach.java_job_interview.algorithms.array_string;
 
 import java.util.Arrays;
 
@@ -13,10 +13,15 @@ The final sorted array should not be returned by the function, but instead be st
  */
 
     public static void main(String[] args) {
-        int[] nums1 = {1,};
+      /*  int[] nums1 = {1,};
         int[] nums2 = {1,2,3};
         merge(nums1, 1, nums2, 3);
-        System.out.println("Arrays.toString(nums1) = " + Arrays.toString(nums1));
+        System.out.println("Arrays.toString(nums1) = " + Arrays.toString(nums1));*/
+
+        int[] nums3 = new int[]{1,2,3,0,0,0};
+        int[] nums4 = new int[]{2,5,6};
+        merge2(nums3, 3, nums4, 3);
+        System.out.println("nums3 = " + Arrays.toString(nums3));
     }
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         int i = m - 1;
