@@ -28,8 +28,6 @@ public class Included {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private static boolean isIncluded(int[] universe, int[] isSubset) {
@@ -60,6 +58,20 @@ public class Included {
                     array[j] = tmp;
                 }
             }
+        }
+    }
+
+    private static void sortDesc(int[] array) {
+        int i = 0;
+        while (i < array.length) {
+            for (int j = i + 1; j < array.length; j++) {
+                if(array[i] < array[j]) {
+                    int tmp = array[i];
+                    array[i] = array[j];
+                    array[j] = tmp;
+                }
+            }
+            i++;
         }
     }
 }

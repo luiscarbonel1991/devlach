@@ -33,21 +33,19 @@ public class StringIsBalanced {
 
     public static boolean isBalanceWithMap(String s) {
         Map<Character, Character> bracketsMap = Map.of(
-                '(', ')',
-                '{', '}',
-                '[', ']'
+                ')', '(',
+                '}', '{',
+                ']', '['
         );
         Deque<Character> stack = new ArrayDeque<>();
 
-        for (var c:
-             s.toCharArray()) {
-             if(bracketsMap.containsKey(c)) {
-                 if(stack.isEmpty() || !Objects.equals(stack.pop(), bracketsMap.get(c))) {
-                     return false;
-                 }
-             } else {
-                 stack.push(c);
-             }
+        for (char c : s.toCharArray()) {
+            if (bracketsMap.containsValue(c)) { // If is an open character
+                stack.push(c);
+            } else if (bracketsMap.containsKey(c) && (stack.isEmpty() || !Objects.equals(stack.pop(), bracketsMap.get(c)))) {
+                    return false;
+
+            }
         }
         return stack.isEmpty();
     }
