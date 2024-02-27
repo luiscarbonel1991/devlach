@@ -9,17 +9,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.springframework.security.oauth2.jwt.JwtClaimNames.AUD;
 
 @SpringBootApplication
 @EnableMethodSecurity // For Method-Level Authorization
@@ -41,10 +39,10 @@ public class SpringSecurityOauth2ResourceServerApplication {
             var jwtEncoder = new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(key)));
             JwtClaimsSet builder = JwtClaimsSet.builder()
                     .issuedAt(Instant.now())
-                    .expiresAt(Instant.now().plusSeconds(86400))
+                    .expiresAt(Instant.now().plusMillis(400))
                     .subject("java")
                     .issuer("https://devlach.com")
-                    .audience(List.of("tasks-api-client"))
+                    .audience(List.of("invalid-audience"))
                     .claim("scp", Arrays.asList("tasks:read", "tasks:write"))
                     .build();
             var jwtEncoded = jwtEncoder.encode(JwtEncoderParameters.from(builder));

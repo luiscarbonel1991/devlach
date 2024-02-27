@@ -22,11 +22,9 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 import static org.hamcrest.core.StringContains.containsString;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -45,10 +43,12 @@ class TaskSpringSecurityTest {
         // GIVEN
         var token = customToken(builder -> builder
                 .audience(List.of("invalid-audience"))
-                .claim("scp", List.of("invalid-scope"))
+                .claim("scp", List.of("tasks:read", "tasks:write"))
                 .issuedAt(Instant.now().minusSeconds(86400))
                 .expiresAt(Instant.now().minusSeconds(86400))
         );
+
+        System.out.println("token = " + token);
 
         // WHEN
         mvc.perform(MockMvcRequestBuilders.get("/tasks")

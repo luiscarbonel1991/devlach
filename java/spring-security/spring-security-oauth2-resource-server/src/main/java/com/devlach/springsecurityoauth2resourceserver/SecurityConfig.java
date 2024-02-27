@@ -11,12 +11,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomAuthenticationEntryPoint entryPoint) throws Exception {
         return httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.GET, "/tasks/**").hasAuthority("SCOPE_tasks:read")
                         .requestMatchers(HttpMethod.POST, "/tasks/**").hasAuthority("SCOPE_tasks:write")
                         .anyRequest().authenticated())
-                .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer
+                        //.authenticationEntryPoint(entryPoint)  // Add the CustomAuthenticationEntryPoint to handle errors with ProblemDetail
+                        .jwt(Customizer.withDefaults()))
                 .build();
     }
 
